@@ -3,7 +3,7 @@ import os
 
 from modules import script_callbacks, scripts
 from modules.paths import models_path
-from scripts import fs
+from scripts.db import DB
 from scripts.ui import on_ui_tabs
 
 log = logging.getLogger("sd")
@@ -16,6 +16,9 @@ log.info(f"SD Pose Library")
 log.info(f"Extension directory [{extension_path}]")
 log.info(f"Data directory [{db_path}]")
 
-fs.bootstrap(db_path, bootstrap_path)
+db = DB(db_path)
+
+if db.is_empty():
+    db.bootstrap(bootstrap_path)
 
 script_callbacks.on_ui_tabs(on_ui_tabs)

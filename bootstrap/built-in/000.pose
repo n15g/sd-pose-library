@@ -1,0 +1,12 @@
+{
+  "title": "Waving both hands",
+  "tags": [
+    "waving",
+    "depth map"
+  ],
+  "controlnet": [
+    {
+      "model": "openpose"
+    }
+  ]
+}
