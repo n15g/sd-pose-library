@@ -1,29 +1,28 @@
 import json
 import logging
-import os
-from typing import Optional
+import os.path
+from typing import List
 
 log = logging.getLogger("sd")
 
 
-class Package:
+class Pose:
     __path: str
     key: str
-    name: Optional[str] = ""
-    source: Optional[str] = ""
+    title: str
+    tags: List[str]
+    layers: List['Layer']
 
     def __init__(self, path: str) -> None:
         super().__init__()
         self.__path = path
-        self.key = os.path.basename(self.__path)
-        self.name = self.key
+        self.key = os.path.basename(path)
+        self.title = ""
+        self.tags = []
         self.__load_meta()
 
     def __load_meta(self) -> None:
-        log.info(f"Loading package [{self.__path}]")
-        meta_path = os.path.join(self.__path, "_meta.json")
-        if not os.path.exists(meta_path):
-            return
+        meta_path = self.__path + ".pose"
 
         try:
             with open(meta_path, "r") as meta_json:
@@ -32,5 +31,11 @@ class Package:
             log.error(f"Failed to load [{meta_path}]", exc_info=e)
             return
 
-        self.name = meta.get("name", self.key)
-        self.source = meta.get("source", "")
+        self.title = meta.get("title", self.key)
+        self.tags = meta.get("tags", [])
+
+    class Layer:
+        model: str
+
+        def __init__(self) -> None:
+            super().__init__()
