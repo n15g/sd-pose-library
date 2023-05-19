@@ -13,7 +13,7 @@ class TestDB(IsolatedAsyncioTestCase):
             db_path = os.path.join(tmp_path, "test-db")
             assert_that(db_path).does_not_exist()
 
-            db = DB(db_path)
+            DB(db_path)
             assert_that(db_path).exists()
 
     def test_is_empty(self):
