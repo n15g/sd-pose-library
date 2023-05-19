@@ -1,5 +1,5 @@
 assertpy
-gradio
+ruff
 coverage
 addict
 aenum
