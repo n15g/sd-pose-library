@@ -32,12 +32,12 @@ jobs:
       - name: Test with pytest
         run: |
           pip install pytest pytest-cov
-          pytest --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html tests
+          pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml tests
 
       - name: Code Coverage Report
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          filename: coverage/**/coverage.cobertura.xml
+          filename: .coverage
           badge: true
           fail_below_min: true
           format: markdown
