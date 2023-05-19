@@ -1,5 +1,4 @@
 import asyncio
-import json
 import logging
 import os
 import shutil
@@ -34,7 +33,7 @@ class DB:
 
     async def bootstrap(self, bootstrap_path: str) -> None:
         if len(os.listdir(self.__db_path)) == 0:
-            log.info(f"Bootstrapping empty database.")
+            log.info("Bootstrapping empty database.")
             shutil.copytree(bootstrap_path, self.__db_path, dirs_exist_ok=True)
 
         await self.load()

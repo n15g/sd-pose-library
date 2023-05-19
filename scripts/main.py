@@ -12,7 +12,7 @@ extension_path = scripts.basedir()
 db_path = os.path.join(models_path, "pose-db")
 bootstrap_path = os.path.join(scripts.basedir(), "bootstrap")
 
-log.info(f"SD Pose Library")
+log.info("SD Pose Library")
 log.info(f"Extension directory [{extension_path}]")
 log.info(f"Data directory [{db_path}]")
 
