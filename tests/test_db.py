@@ -6,6 +6,8 @@ from assertpy import assert_that
 
 from scripts.db import DB
 
+tests_dir = os.path.dirname(__file__)
+
 
 class TestDB(IsolatedAsyncioTestCase):
     def test_create_dir(self):
@@ -25,7 +27,8 @@ class TestDB(IsolatedAsyncioTestCase):
         with tempfile.TemporaryDirectory() as db_path:
             db = DB(db_path)
 
-            bootstrap_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "bootstrap"))
+            bootstrap_path = os.path.join(tests_dir, "..", "bootstrap")
+
             await db.bootstrap(bootstrap_path)
 
             assert_that(db_path).exists()
