@@ -25,13 +25,13 @@ class TestDB(IsolatedAsyncioTestCase):
         with tempfile.TemporaryDirectory() as db_path:
             db = DB(db_path)
 
-            bootstrap_path = os.path.abspath(os.path.join("..", "bootstrap"))
+            bootstrap_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "bootstrap"))
             await db.bootstrap(bootstrap_path)
 
             assert_that(db_path).exists()
 
     async def test_load(self):
-        db = DB("db")
+        db = DB(os.path.join(os.path.dirname(__file__), "db"))
         await db.load()
 
         assert_that(db["no_meta"]).is_not_none()
