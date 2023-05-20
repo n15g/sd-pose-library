@@ -31,8 +31,9 @@ jobs:
           ruff --format=github --target-version=py37 .
       - name: Test with pytest
         run: |
-          pip install pytest pytest-cov
-          pytest --doctest-modules --junitxml=junit/test-results.xml --cov=. --cov-report=xml tests
+          pip install pytest coverage
+          coverage run --source=. -m pytest
+          coverage xml
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
