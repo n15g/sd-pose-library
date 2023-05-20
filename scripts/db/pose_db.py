@@ -4,12 +4,12 @@ import os
 import shutil
 from typing import Optional, List
 
-from scripts.package import Package
+from scripts.db.package import Package
 
 log = logging.getLogger("sd")
 
 
-class DB:
+class PoseDB:
     __db_path: str
     __packages: dict[str, Package]
 

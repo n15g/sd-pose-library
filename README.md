@@ -4,5 +4,3 @@
 
 # sd-pose-library
 Pose library extension for Automatic-based Stable Diffusion UIs.
-
-![Coverage](https://codecov.io/gh/n15g/sd-pose-library/branch/main/graphs/sunburst.svg?token=1SV7S2D3BU)

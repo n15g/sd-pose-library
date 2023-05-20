@@ -1,3 +1,4 @@
 assertpy
 ruff
 coverage
+Pillow
