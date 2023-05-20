@@ -36,7 +36,7 @@ class Pose:
             with open(meta_path, "r") as meta_json:
                 meta: dict = json.load(meta_json)
         except Exception as e:
-            log.error(f"Failed to load [{meta_path}]", exc_info=e)
+            log.warning(f"Failed to load [{meta_path}]", exc_info=e)
             return
 
         self.title = meta.get("title", self.key)

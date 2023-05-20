@@ -22,9 +22,6 @@ class PoseDB:
             log.info(f"Creating db directory. {self.__db_path}")
             os.mkdir(self.__db_path)
 
-    def __setitem__(self, key, item):
-        self.__packages[key] = item
-
     def __getitem__(self, key):
         return self.__packages[key]
 
