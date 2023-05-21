@@ -6,7 +6,7 @@ from typing import List, Dict, Optional
 from scripts.db.layer import Layer
 from scripts.img import find_img
 
-log = logging.getLogger("sd")
+log = logging.getLogger(__name__)
 
 
 class Pose:

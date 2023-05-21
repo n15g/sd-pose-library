@@ -3,7 +3,7 @@ import logging
 import os
 from typing import Optional
 
-log = logging.getLogger("sd")
+log = logging.getLogger(__name__)
 
 
 class Package:

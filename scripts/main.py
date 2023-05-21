@@ -1,13 +1,13 @@
+import asyncio
 import logging
 import os
 
 from modules import script_callbacks, scripts
 from modules.paths import models_path
-
 from scripts.db.pose_db import PoseDB
 from scripts.ui import on_ui_tabs
 
-log = logging.getLogger("sd")
+log = logging.getLogger(__name__)
 
 extension_path = scripts.basedir()
 db_path = os.path.join(models_path, "pose-db")
@@ -19,7 +19,11 @@ log.info(f"Data directory [{db_path}]")
 
 db = PoseDB(db_path)
 
-if db.is_empty():
-    db.bootstrap(bootstrap_path)
+
+async def load_db() -> None:
+    await db.load()
+
+
+asyncio.run(load_db())
 
 script_callbacks.on_ui_tabs(on_ui_tabs)

@@ -1,6 +1,6 @@
 import os
 import tempfile
-from unittest import IsolatedAsyncioTestCase
+from unittest import IsolatedAsyncioTestCase, mock
 
 from assertpy import assert_that
 
@@ -25,12 +25,9 @@ class TestDB(IsolatedAsyncioTestCase):
     async def test_bootstrap(self):
         with tempfile.TemporaryDirectory() as db_path:
             db = PoseDB(db_path)
+            await db.load()
 
-            bootstrap_path = os.path.join(test_resources, "db")
-
-            await db.bootstrap(bootstrap_path)
-
-            assert_that(db_path).exists()
+            assert_that(os.path.join(db_path, "examples")).exists()
 
     async def test_load(self):
         db = PoseDB(os.path.join(test_resources, "db"))
@@ -38,3 +35,24 @@ class TestDB(IsolatedAsyncioTestCase):
 
         assert_that(db["no_meta"]).is_not_none()
         assert_that(db["test_package"]).is_not_none()
+
+    async def test_load_callback_before_load(self):
+        db = PoseDB(os.path.join(test_resources, "db"))
+        cb = mock.Mock()
+
+        db.on_load(cb)
+        assert_that(cb.called).is_false()
+
+        await db.load()
+        assert_that(cb.called).is_true()
+
+    async def test_load_callback_after_load(self):
+        """
+        Callback should be called immediately if the db has already been loaded.
+        """
+        db = PoseDB(os.path.join(test_resources, "db"))
+        await db.load()
+
+        cb = mock.Mock()
+        db.on_load(cb)
+        assert_that(cb.called).is_true()
