@@ -2,3 +2,4 @@ assertpy
 ruff
 coverage
 Pillow
+gradio

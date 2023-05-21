@@ -47,10 +47,10 @@ class PoseDB:
         for observer in self.__load_observers:
             observer(self)
 
-    def on_load(self, cb: Callable[['PoseDB'], None]) -> None:
+    def on_load(self, cb: Callable[[], None]) -> None:
         self.__load_observers.append(cb)
         if self.__loaded:
-            cb(self)
+            cb()
 
     async def __load_package(self, key: str) -> Optional[Package]:
         path = os.path.join(self.__db_path, key)
@@ -64,3 +64,6 @@ class PoseDB:
         if len(os.listdir(self.__db_path)) == 0:
             log.info("Bootstrapping empty database.")
             shutil.copytree(BOOTSTRAP_PATH, self.__db_path, dirs_exist_ok=True)
+
+    def keys(self):
+        return self.__packages.keys()

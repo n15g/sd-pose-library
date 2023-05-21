@@ -1,0 +1,22 @@
+{
+  "title": "Christmas Tree Payload",
+  "tags": [
+    "waving",
+    "depth map",
+    "normal map"
+  ],
+  "layers": [
+    {
+      "model": "openpose"
+    },
+    {
+      "model": "depth"
+    },
+    {
+      "model": "normal"
+    },
+    {
+      "model": "canny"
+    }
+  ]
+}

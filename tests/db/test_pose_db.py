@@ -36,6 +36,12 @@ class TestDB(IsolatedAsyncioTestCase):
         assert_that(db["no_meta"]).is_not_none()
         assert_that(db["test_package"]).is_not_none()
 
+    async def test_keys(self):
+        db = PoseDB(os.path.join(test_resources, "db"))
+        await db.load()
+
+        assert_that(db.keys()).contains("no_meta", "test_package")
+
     async def test_load_callback_before_load(self):
         db = PoseDB(os.path.join(test_resources, "db"))
         cb = mock.Mock()

@@ -31,3 +31,9 @@ class TestPackage(TestCase):
         assert_that(pkg.key).is_equal_to("partial_meta")
         assert_that(pkg.name).is_equal_to("Partial Meta")
         assert_that(pkg.source).is_equal_to("")
+
+    def test_load_poses(self):
+        path = os.path.join(test_resources, "db", "test_package")
+        pkg = Package(path)
+
+        assert_that(pkg.poses).is_length(3)

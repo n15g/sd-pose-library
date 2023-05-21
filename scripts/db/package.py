@@ -1,7 +1,12 @@
+import glob
 import json
 import logging
 import os
-from typing import Optional
+from typing import Optional, List
+
+from scripts.db.pose import Pose
+
+POSE_GLOB = "*.pose"
 
 log = logging.getLogger(__name__)
 
@@ -11,6 +16,7 @@ class Package:
     key: str
     name: Optional[str] = ""
     source: Optional[str] = ""
+    poses: List[Pose]
 
     def __init__(self, path: str) -> None:
         super().__init__()
@@ -18,6 +24,8 @@ class Package:
         self.key = os.path.basename(self.__path)
         self.name = self.key
         self.__load_meta()
+        self.poses = []
+        self.__load_poses()
 
     def __load_meta(self) -> None:
         log.info(f"Loading package [{self.__path}]")
@@ -32,3 +40,9 @@ class Package:
 
         self.name = meta.get("name", self.key)
         self.source = meta.get("source", "")
+
+    def __load_poses(self) -> None:
+        paths = glob.glob(os.path.join(self.__path, POSE_GLOB))
+        for path in paths:
+            pose = Pose(path)
+            self.poses.append(pose)
